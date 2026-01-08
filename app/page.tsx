@@ -1,10 +1,30 @@
+import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapClient } from "./map-client";
 
+const getSelectedClient = () => {
+  if (typeof window === "undefined") return null;
+  const stored = localStorage.getItem("selectedClient");
+  return stored ? JSON.parse(stored) : null;
+};
+
+const selectedClient = getSelectedClient();
+
 export default function Home() {
+  // Se não tem cliente selecionado, manda pra tela de seleção, seu corno!
+  if (!selectedClient) {
+    redirect("/select-client");
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 p-6">
-      {/* Coluna esquerda: Cards de resumo – simples, clean, foco no essencial */}
+      {/* Header com nome da fazenda selecionada – isolamento por cliente foda */}
+      <div className="lg:col-span-3">
+        <h1 className="text-3xl font-bold mb-2">Dashboard - {selectedClient.name}</h1>
+        <p className="text-muted-foreground mb-8">{selectedClient.location} • {selectedClient.talhoes} talhões</p>
+      </div>
+
+      {/* Coluna esquerda: Cards de resumo */}
       <div className="space-y-6 lg:col-span-1">
         <Card>
           <CardHeader>
@@ -13,15 +33,13 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Dashboard com posições realtime de máquinas, talhões, operações e tudo que tua fazenda precisa pra parar de usar planilha Excel cagada.
+              Dashboard com posições realtime de máquinas, talhões, operações e tudo que tua fazenda precisa.
             </p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Máquinas Ativas</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle>Máquinas Ativas</CardTitle></CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">0</p>
             <p className="text-sm text-muted-foreground">online agora (em breve realtime)</p>
@@ -29,9 +47,7 @@ export default function Home() {
         </Card>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Talhões Monitorados</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle>Talhões Monitorados</CardTitle></CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">0</p>
             <p className="text-sm text-muted-foreground">camadas carregadas</p>
@@ -39,15 +55,14 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* Coluna direita: Mapa foda ocupando espaço inteiro */}
+      {/* Coluna direita: Mapa foda */}
       <div className="lg:col-span-2">
         <Card className="h-full flex flex-col">
           <CardHeader>
             <CardTitle>Mapa da Fazenda</CardTitle>
-            <CardDescription>Visão geral em tempo real (em breve com máquinas ao vivo)</CardDescription>
+            <CardDescription>Visão geral em tempo real</CardDescription>
           </CardHeader>
           <CardContent className="flex-1 relative overflow-hidden rounded-lg">
-            {/* Container do mapa com height 100% e absolute pra ocupar todo o CardContent */}
             <div id="map" className="absolute inset-0" />
             <MapClient />
           </CardContent>
