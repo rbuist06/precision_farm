@@ -12,7 +12,7 @@ import { Tractor, MapPin, Calendar, Settings, LayoutDashboard } from "lucide-rea
 
 const menuItems = [
   { title: "Dashboard", icon: LayoutDashboard, url: "/" },
-  { name: "Máquinas", icon: Tractor, url: "/maquinas" },
+  { title: "Máquinas", icon: Tractor, url: "/maquinas" },
   { title: "Talhões", icon: MapPin, url: "/talhoes" },
   { title: "Operações", icon: Calendar, url: "/operacoes" },
   { title: "Configs", icon: Settings, url: "/configs" },
