@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapClient } from "./map-client";
+import { Button } from "@/components/ui/button";
 
 const getSelectedClient = () => {
   if (typeof window === "undefined") return null;
@@ -11,17 +12,27 @@ const getSelectedClient = () => {
 const selectedClient = getSelectedClient();
 
 export default function Home() {
-  // Se não tem cliente selecionado, manda pra tela de seleção, seu corno!
+  // Se não tem cliente selecionado, manda pra seleção, seu corno!
   if (!selectedClient) {
     redirect("/select-client");
   }
 
+  const handleChangeClient = () => {
+    localStorage.removeItem("selectedClient");
+    window.location.href = "/select-client";
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 p-6">
-      {/* Header com nome da fazenda selecionada – isolamento por cliente foda */}
-      <div className="lg:col-span-3">
-        <h1 className="text-3xl font-bold mb-2">Dashboard - {selectedClient.name}</h1>
-        <p className="text-muted-foreground mb-8">{selectedClient.location} • {selectedClient.talhoes} talhões</p>
+      {/* Header com nome da fazenda selecionada + botão trocar cliente */}
+      <div className="lg:col-span-3 flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold">Dashboard - {selectedClient.name}</h1>
+          <p className="text-muted-foreground">{selectedClient.location} • {selectedClient.talhoes} talhões</p>
+        </div>
+        <Button variant="outline" onClick={handleChangeClient}>
+          Trocar Cliente
+        </Button>
       </div>
 
       {/* Coluna esquerda: Cards de resumo */}
