@@ -23,7 +23,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Precision Farm</SidebarGroupLabel>
+          <SidebarGroupLabel>Precision Farms</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
