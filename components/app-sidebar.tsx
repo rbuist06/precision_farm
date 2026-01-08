@@ -8,10 +8,22 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Tractor, MapPin, Calendar, Settings, LayoutDashboard } from "lucide-react";
+import {
+  Tractor,
+  MapPin,
+  Calendar,
+  Settings,
+  LayoutDashboard,
+  PlusCircle,  // ← NOVO ÍCONE FODA PRA CRIAR
+} from "lucide-react";
 
 const menuItems = [
   { title: "Dashboard", icon: LayoutDashboard, url: "/" },
+  {
+    title: "Nova Fazenda",
+    icon: PlusCircle,
+    url: "/add-client",
+  },  // ← AQUI, SEU CORNO! NO LUGAR CERTO, BONITINHO
   { title: "Máquinas", icon: Tractor, url: "/maquinas" },
   { title: "Talhões", icon: MapPin, url: "/talhoes" },
   { title: "Operações", icon: Calendar, url: "/operacoes" },

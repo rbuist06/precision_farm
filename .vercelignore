@@ -1,0 +1,5 @@
+.git
+node_modules
+.env.local
+supabase/
+types/supabase.ts  # opcional, se quiser regerar no local
