@@ -8,8 +8,10 @@ export function MapClient() {
   useEffect(() => {
     const map = new maplibregl.Map({
       container: "map",
-      // Style foda que funciona liso no Vercel (OpenStreetMap via Stadia, sem CORS cagado)
-      style: "https://tiles.stadiamaps.com/styles/osm_bright.json",
+      // Style foda que funciona liso no Vercel (OpenStreetMap via MapTiler, grátis com attribution)
+      style: "https://api.maptiler.com/maps/streets-v2/style.json?key=get_your_own_key", // pega key grátis em maptiler.com (basic plan free)
+      // Alternativa sem key (OSM padrão, mas pode ser lento):
+      // style: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       center: [-53.5, -30.5], // centro RS
       zoom: 8,
     });
