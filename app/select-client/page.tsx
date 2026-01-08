@@ -4,9 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 
 const clientsTest = [
-  { id: "1", name: "Fazenda Boa Vista", location: "Ponta Grossa, PR", talhoes: 45 },
+  { id: "1", name: "Fazenda Joao", location: "Ponta Grossa, PR", talhoes: 45 },
   { id: "2", name: "Fazenda do Zé", location: "Castro, PR", talhoes: 32 },
-  { id: "3", name: "Agro Precision Teste", location: "Carambeí, PR", talhoes: 28 },
+  { id: "3", name: "Agro Precision Teste1", location: "Carambeí, PR", talhoes: 28 },
 ];
 
 export default function SelectClient() {
