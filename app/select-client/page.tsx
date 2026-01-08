@@ -26,12 +26,14 @@ export default function SelectClient() {
               key={client.id}
               variant="outline"
               className="w-full justify-start text-left p-6 h-auto hover:bg-accent"
-              onClick={() => handleSelectClient(client)} // onClick certo, sem asChild cagado
+              asChild
             >
-              <div>
-                <p className="font-semibold text-lg">{client.name}</p>
-                <p className="text-sm text-muted-foreground">{client.location} • {client.talhoes} talhões</p>
-              </div>
+              <button onClick={() => handleSelectClient(client)}>
+                <div>
+                  <p className="font-semibold text-lg">{client.name}</p>
+                  <p className="text-sm text-muted-foreground">{client.location} • {client.talhoes} talhões</p>
+                </div>
+              </button>
             </Button>
           ))}
         </CardContent>
