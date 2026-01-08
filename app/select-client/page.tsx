@@ -8,6 +8,11 @@ const clientsTest = [
 ];
 
 export default function SelectClient() {
+  const handleSelectClient = (client: typeof clientsTest[0]) => {
+    localStorage.setItem("selectedClient", JSON.stringify(client));
+    window.location.href = "/";
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-8">
       <Card className="w-full max-w-2xl">
@@ -21,10 +26,7 @@ export default function SelectClient() {
               key={client.id}
               variant="outline"
               className="w-full justify-start text-left p-6 h-auto hover:bg-accent"
-              onClick={() => {
-                localStorage.setItem("selectedClient", JSON.stringify(client));
-                window.location.href = "/";
-              }}
+              onClick={() => handleSelectClient(client)} // onClick certo, sem asChild cagado
             >
               <div>
                 <p className="font-semibold text-lg">{client.name}</p>
