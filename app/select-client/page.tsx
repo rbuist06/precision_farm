@@ -1,3 +1,5 @@
+"use client"; // Torna a página inteira Client Component – mata o erro de prerender na hora, simples pra caralho!
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -26,7 +28,7 @@ export default function SelectClient() {
               key={client.id}
               variant="outline"
               className="w-full justify-start text-left p-6 h-auto hover:bg-accent"
-              onClick={() => handleSelectClient(client)} // onClick direto no Button, sem asChild cagado!
+              onClick={() => handleSelectClient(client)} // onClick direto funciona porque a página é "use client"
             >
               <div>
                 <p className="font-semibold text-lg">{client.name}</p>
