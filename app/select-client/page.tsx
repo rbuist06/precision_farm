@@ -26,7 +26,7 @@ export default function SelectClient() {
               key={client.id}
               variant="outline"
               className="w-full justify-start text-left p-6 h-auto hover:bg-accent"
-              onClick={() => handleSelectClient(client)}
+              onClick={() => handleSelectClient(client)} // onClick direto no Button, sem asChild cagado!
             >
               <div>
                 <p className="font-semibold text-lg">{client.name}</p>
