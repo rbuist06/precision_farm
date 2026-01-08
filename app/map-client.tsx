@@ -4,15 +4,28 @@ import { useEffect } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
+type Machine = {
+  name: string;
+  lngLat: [number, number];
+  velocity: string;
+  operator: string;
+  talhao: string;
+};
+
+const machines: Machine[] = [
+  { name: "Trator John Deere 01", lngLat: [-53.2, -30.0], velocity: "18 km/h", operator: "Zé da Roça", talhao: "Talhão A1" },
+  { name: "Colheitadeira Case 02", lngLat: [-53.8, -30.5], velocity: "12 km/h", operator: "Maria do Talhão", talhao: "Talhão B2" },
+  { name: "Pulverizador Jacto 03", lngLat: [-53.0, -31.0], velocity: "15 km/h", operator: "Pedro Agro", talhao: "Talhão C3" },
+  { name: "Trator Massey 04", lngLat: [-53.6, -30.8], velocity: "20 km/h", operator: "Luiz Fazenda", talhao: "Talhão D4" },
+];
+
 export function MapClient() {
   useEffect(() => {
     const map = new maplibregl.Map({
       container: "map",
-      // Style foda que funciona liso no Vercel (OpenStreetMap via MapTiler, grátis com attribution)
-      style: "https://api.maptiler.com/maps/streets-v2/style.json?key=get_your_own_key", // pega key grátis em maptiler.com (basic plan free)
-      // Alternativa sem key (OSM padrão, mas pode ser lento):
-      // style: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-      center: [-53.5, -30.5], // centro RS
+      // Style streets-v2 foda com tua key MapTiler – tiles carregam liso pra caralho
+      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=U6EWOJfmq1254JNpiEbh`,
+      center: [-53.5, -30.5], // centro RS foda
       zoom: 8,
     });
 
@@ -20,26 +33,21 @@ export function MapClient() {
     map.addControl(new maplibregl.ScaleControl(), "bottom-left");
 
     // Markers fictícios de trator brasileiro humilhando gringo
-    const machines = [
-      { name: "Trator John Deere 01", lngLat: [-53.2, -30.0] as [number, number], velocity: "18 km/h", operator: "Zé da Roça", talhao: "Talhão A1" },
-      { name: "Colheitadeira Case 02", lngLat: [-53.8, -30.5] as [number, number], velocity: "12 km/h", operator: "Maria do Talhão", talhao: "Talhão B2" },
-      { name: "Pulverizador Jacto 03", lngLat: [-53.0, -31.0] as [number, number], velocity: "15 km/h", operator: "Pedro Agro", talhao: "Talhão C3" },
-      { name: "Trator Massey 04", lngLat: [-53.6, -30.8] as [number, number], velocity: "20 km/h", operator: "Luiz Fazenda", talhao: "Talhão D4" },
-    ];
-
     machines.forEach((machine) => {
-      new maplibregl.Marker({ color: "#22c55e" })
+      new maplibregl.Marker({ color: "#22c55e" }) // verde trator foda
         .setLngLat(machine.lngLat)
         .setPopup(
-          new maplibregl.Popup({ offset: 25 })
-            .setHTML(`
-              <div class="p-3 bg-white dark:bg-gray-800 rounded shadow">
-                <strong class="text-lg">${machine.name}</strong><br>
-                Operador: ${machine.operator}<br>
-                Velocidade: ${machine.velocity}<br>
-                Talhão: ${machine.talhao}
-              </div>
-            `)
+          new maplibregl.Popup({ offset: 25, closeButton: false })
+            .setHTML(
+              `<div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-w-xs">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">${machine.name}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                  <strong>Operador:</strong> ${machine.operator}<br/>
+                  <strong>Velocidade:</strong> ${machine.velocity}<br/>
+                  <strong>Talhão:</strong> ${machine.talhao}
+                </p>
+              </div>`
+            )
         )
         .addTo(map);
     });
