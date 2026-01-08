@@ -8,14 +8,16 @@ export function MapClient() {
   useEffect(() => {
     const map = new maplibregl.Map({
       container: "map",
-      style: "https://demotiles.maplibre.org/style.json",
-      center: [-53.5, -30.5],
+      // Style foda que funciona liso no Vercel (OpenStreetMap via Stadia, sem CORS cagado)
+      style: "https://tiles.stadiamaps.com/styles/osm_bright.json",
+      center: [-53.5, -30.5], // centro RS
       zoom: 8,
     });
 
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.addControl(new maplibregl.ScaleControl(), "bottom-left");
 
+    // Markers fictícios de trator brasileiro humilhando gringo
     const machines = [
       { name: "Trator John Deere 01", lngLat: [-53.2, -30.0] as [number, number], velocity: "18 km/h", operator: "Zé da Roça", talhao: "Talhão A1" },
       { name: "Colheitadeira Case 02", lngLat: [-53.8, -30.5] as [number, number], velocity: "12 km/h", operator: "Maria do Talhão", talhao: "Talhão B2" },
